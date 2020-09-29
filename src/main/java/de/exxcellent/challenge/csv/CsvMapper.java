@@ -52,16 +52,16 @@ public class CsvMapper {
     }
 
     private <T> List<T> mapCsv(BufferedReader reader, Class<T> type) {
-        int lineCounter = 1;
+        var lineCounter = 1;
 
-        List<Field> fields = mapFieldsToHeader(reader, type, lineCounter);
+        var fields = mapFieldsToHeader(reader, type, lineCounter);
         lineCounter++;
 
         List<T> objects = new ArrayList<>();
         String line;
 
         while ((line = getLine(reader, lineCounter)) != null) {
-            String[] values = splitLine(line);
+            var values = splitLine(line);
 
             if (values.length != fields.size()) {
                 if (config.isIgnoreInvalidLines()) {
@@ -75,12 +75,12 @@ public class CsvMapper {
                         fields.size()));
             }
 
-            Constructor<T> constructor = getDeclaredConstructor(type);
+            var constructor = getDeclaredConstructor(type);
             constructor.setAccessible(true);
-            T instance = createInstance(constructor, type);
+            var instance = createInstance(constructor, type);
 
-            for (int i = 0; i < fields.size(); i++) {
-                Field declaredField = getDeclaredField(type, fields, i);
+            for (var i = 0; i < fields.size(); i++) {
+                var declaredField = getDeclaredField(type, fields, i);
                 var value = values[i];
                 setFieldValue(instance, declaredField, value);
             }
@@ -96,9 +96,9 @@ public class CsvMapper {
     }
 
     private <T> List<Field> mapFieldsToHeader(BufferedReader reader, Class<T> type, int lineCounter) {
-        String header = getLine(reader, lineCounter);
+        var header = getLine(reader, lineCounter);
 
-        String[] headers = splitLine(header);
+        var headers = splitLine(header);
 
         return Arrays.stream(headers)
                 .map(h -> Arrays.stream(type.getDeclaredFields())
@@ -112,7 +112,7 @@ public class CsvMapper {
 
     private <T> void setFieldValue(T instance, Field declaredField, String value) {
         declaredField.setAccessible(true);
-        Class<?> fieldType = declaredField.getType();
+        var fieldType = declaredField.getType();
 
         if (fieldType.equals(int.class) || fieldType.equals(Integer.class)) {
             setFieldValue(declaredField, instance, Integer.parseInt(value));

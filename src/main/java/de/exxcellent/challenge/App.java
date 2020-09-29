@@ -23,22 +23,22 @@ public final class App {
      */
     public static void main(String... args) {
 
-        CsvMapper mapper = new CsvMapper(CsvConfig.builder().ignoreInvalidLines().separator(';').build());
+        var mapper = new CsvMapper(CsvConfig.builder().ignoreInvalidLines().separator(';').build());
 
-        List<WeatherData> weatherData = mapper.fromCsv(App.class.getResourceAsStream("weather.csv"), WeatherData.class);
+        var weatherData = mapper.fromCsv(App.class.getResourceAsStream("weather.csv"), WeatherData.class);
         System.out.printf("Day with smallest temperature spread : %d%n", getMin(weatherData, WeatherData::getTempSpread).getDay());
 
-        List<FootballData> footballData = mapper.fromCsv(App.class.getResourceAsStream("football.csv"), FootballData.class);
+        var footballData = mapper.fromCsv(App.class.getResourceAsStream("football.csv"), FootballData.class);
         System.out.printf("Team with smallest goal spread       : %s%n", getMin(footballData, FootballData::getGoalSpread).getTeam());
     }
 
     private static <T> T getMin(List<T> elements, Function<T, Integer> function) {
 
         T minObj = null;
-        int minValue = -1;
+        var minValue = -1;
 
-        for (T element : elements) {
-            Integer number = function.apply(element);
+        for (var element : elements) {
+            var number = function.apply(element);
             if (minValue < 0 || number < minValue) {
                 minObj = element;
                 minValue = number;
