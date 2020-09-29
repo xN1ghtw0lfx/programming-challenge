@@ -147,7 +147,7 @@ public class CsvMapper {
             throw new CsvParsingException(format("There was an exception inside the constructor of {0}.", type.getName()), e);
         } catch (IllegalAccessException e) {
             //Should never happen because we make them accessible.
-            throw new CsvParsingException("Couldn't access the given method of " + type.getName(), e);
+            throw new CsvParsingException(format("Couldn't access the given method of {0}", type.getName()), e);
         }
     }
 
@@ -155,7 +155,7 @@ public class CsvMapper {
         try {
             return reader.readLine();
         } catch (IOException e) {
-            throw new CsvParsingException("Error reading line " + lineCounter, e);
+            throw new CsvParsingException(format("Error reading line {0}", lineCounter), e);
         }
     }
 
@@ -163,7 +163,7 @@ public class CsvMapper {
         try {
             return type.getDeclaredConstructor();
         } catch (NoSuchMethodException e) {
-            throw new CsvParsingException("Couldn't find the default constructor of " + type.getName() + ". The constructor can be private.", e);
+            throw new CsvParsingException(format("Couldn't find the default constructor of {0}. The constructor can be private.", type.getName()), e);
         }
     }
 
@@ -172,7 +172,7 @@ public class CsvMapper {
             return type.getDeclaredField(fields.get(i).getName());
         } catch (NoSuchFieldException e) {
             //Should never happen because we get the field names directly from the class itself.
-            throw new CsvParsingException("Couldn't access the given field of " + type.getName(), e);
+            throw new CsvParsingException(format("Couldn't access the given field of {0}", type.getName()), e);
         }
     }
 
