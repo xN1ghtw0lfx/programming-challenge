@@ -1,4 +1,4 @@
-package de.exxcellent.challenge;
+package de.exxcellent.challenge.csv;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

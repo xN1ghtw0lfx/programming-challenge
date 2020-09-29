@@ -1,6 +1,6 @@
 package de.exxcellent.challenge.data;
 
-import de.exxcellent.challenge.CsvProperty;
+import de.exxcellent.challenge.csv.CsvProperty;
 
 public class FootballData {
 

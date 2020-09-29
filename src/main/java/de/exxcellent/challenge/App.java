@@ -1,5 +1,6 @@
 package de.exxcellent.challenge;
 
+import de.exxcellent.challenge.csv.CsvConfig;
 import de.exxcellent.challenge.csv.CsvMapper;
 import de.exxcellent.challenge.data.FootballData;
 import de.exxcellent.challenge.data.WeatherData;
@@ -22,7 +23,7 @@ public final class App {
      */
     public static void main(String... args) {
 
-        CsvMapper mapper = new CsvMapper();
+        CsvMapper mapper = new CsvMapper(CsvConfig.builder().ignoreInvalidLines().separator(';').build());
 
         List<WeatherData> weatherData = mapper.fromCsv(App.class.getResourceAsStream("weather.csv"), WeatherData.class);
         System.out.printf("Day with smallest temperature spread : %d%n", getMin(weatherData, WeatherData::getTempSpread).getDay());
