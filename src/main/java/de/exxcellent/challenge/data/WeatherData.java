@@ -2,6 +2,11 @@ package de.exxcellent.challenge.data;
 
 import de.exxcellent.challenge.csv.CsvProperty;
 
+/**
+ * Weather data class.
+ *
+ * @author Kevin Degen
+ */
 public class WeatherData {
 
     @CsvProperty("Day")

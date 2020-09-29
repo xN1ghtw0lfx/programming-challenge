@@ -2,6 +2,11 @@ package de.exxcellent.challenge.data;
 
 import de.exxcellent.challenge.csv.CsvProperty;
 
+/**
+ * Football data class.
+ *
+ * @author Kevin Degen
+ */
 public class FootballData {
 
     @CsvProperty("Team")

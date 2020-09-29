@@ -15,13 +15,21 @@ import java.util.stream.Collectors;
 import static java.text.MessageFormat.format;
 
 /**
+ * The {@link CsvMapper} is able to turn a well formatted CSV file into a java object.
+ * Every column header has to have a corresponding field annotated with {@link CsvProperty} in the java class.
+ * Inspired by Jackson and Gson.
+ *
  * <p> Potential enhancements:
- * <li> Support more than just UTF8
- * <li> Add more config options, e.g. error handling and how to handle empty values
- * <li> Make the mapper less strict. Currently every column in the csv needs an annotated field in the data class
- * <li> Support more than int double and String. E.g. Date or even Enums
+ * <li> Support more than just UTF8.
+ * <li> Add more config options, e.g. error handling and how to handle empty values.
+ * <li> Make the mapper less strict. Currently every column in the csv needs an annotated field in the data class.
+ * <li> Support more than int double and String. E.g. long, float, Date or even Enums.
  * <li> Use multiple Exceptions instead of a single Exception for every error.
- * <li> Implement way from Object to CSV file
+ * <li> Implement a way back from the object to the CSV file.
+ * <li> Limit the amount of available separators. Would make testing easier.
+ * <li> Performance improvements.
+ *
+ * @author Kevin Degen
  */
 public class CsvMapper {
 
