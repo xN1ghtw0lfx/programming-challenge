@@ -38,10 +38,10 @@ public final class App {
         int minValue = -1;
 
         for (T element : elements) {
-            Integer call = function.apply(element);
-            if (minValue < 0 || call < minValue) {
+            Integer number = function.apply(element);
+            if (minValue < 0 || number < minValue) {
                 minObj = element;
-                minValue = call;
+                minValue = number;
             }
         }
 

@@ -1,6 +1,11 @@
 package de.exxcellent.challenge.csv;
 
+import de.exxcellent.challenge.csv.data.AbstractFootballData;
+import de.exxcellent.challenge.csv.data.FootballDataException;
+import de.exxcellent.challenge.csv.data.FootballDataNoDefaultConstructor;
+import de.exxcellent.challenge.csv.data.WeatherDataInvalidDatatype;
 import de.exxcellent.challenge.data.FootballData;
+import de.exxcellent.challenge.data.WeatherData;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -15,11 +20,11 @@ class CsvMapperTest {
 
     @Test
     void fromCsvString() throws URISyntaxException, IOException {
-        var csvStr = Files.readString(Path.of(CsvMapperTest.class.getResource("football.csv").toURI()));
+        var csvStr = Files.readString(Path.of(CsvMapperTest.class.getResource("weather.csv").toURI()));
         var mapper = new CsvMapper();
-        var footballData = mapper.fromCsv(csvStr, FootballData.class);
+        var weatherData = mapper.fromCsv(csvStr, WeatherData.class);
 
-        assertEquals(20, footballData.size());
+        assertEquals(30, weatherData.size());
     }
 
     @Test
@@ -59,5 +64,33 @@ class CsvMapperTest {
         var footballData = mapper.fromCsv(CsvMapperTest.class.getResourceAsStream("footballIncomplete.csv"), FootballData.class);
 
         assertEquals(17, footballData.size());
+    }
+
+    @Test
+    void noDefaultConstructor() {
+        var mapper = new CsvMapper();
+
+        assertThrows(CsvParsingException.class, () -> mapper.fromCsv(CsvMapperTest.class.getResourceAsStream("football.csv"), FootballDataNoDefaultConstructor.class));
+    }
+
+    @Test
+    void abstractDataClass() {
+        var mapper = new CsvMapper();
+
+        assertThrows(CsvParsingException.class, () -> mapper.fromCsv(CsvMapperTest.class.getResourceAsStream("football.csv"), AbstractFootballData.class));
+    }
+
+    @Test
+    void constructorException() {
+        var mapper = new CsvMapper();
+
+        assertThrows(CsvParsingException.class, () -> mapper.fromCsv(CsvMapperTest.class.getResourceAsStream("football.csv"), FootballDataException.class));
+    }
+
+    @Test
+    void invalidDataType() {
+        var mapper = new CsvMapper();
+
+        assertThrows(CsvParsingException.class, () -> mapper.fromCsv(CsvMapperTest.class.getResourceAsStream("weather.csv"), WeatherDataInvalidDatatype.class));
     }
 }
