@@ -23,7 +23,7 @@ public final class App {
      */
     public static void main(String... args) {
 
-        var mapper = new CsvMapper(CsvConfig.builder().ignoreInvalidLines().separator(';').build());
+        var mapper = new CsvMapper();
 
         var weatherData = mapper.fromCsv(App.class.getResourceAsStream("weather.csv"), WeatherData.class);
         System.out.printf("Day with smallest temperature spread : %d%n", getMin(weatherData, WeatherData::getTempSpread).getDay());
